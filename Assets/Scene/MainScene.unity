@@ -129,6 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7515275}
   - component: {fileID: 7515274}
+  - component: {fileID: 7515276}
+  - component: {fileID: 7515277}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -165,6 +167,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7515276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ddeaf1d3ed22848ab8e9f58d8d25fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BelajarDelegate
+--- !u!114 &7515277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555dd88dfd5163546b5f559af5c89071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PemancarEvent
 --- !u!1 &311574638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,6 +1831,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   hp: 100
   ms: 2
+  jarakDeteksi: 6
+  jarakSerang: 1.2
+  jedaSerang: 1
 --- !u!212 &1318915263
 SpriteRenderer:
   m_ObjectHideFlags: 0
