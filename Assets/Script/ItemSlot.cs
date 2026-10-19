@@ -1,8 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     // Item Data
     public string itemName;
@@ -15,6 +16,14 @@ public class ItemSlot : MonoBehaviour
     [SerializeField] private Image itemImage;
 
     [SerializeField] private int MaxStackSize = 99;
+    [SerializeField]  public GameObject SelectedPanel;
+
+    public bool isItemSelected;
+    public InventoryManager inventoryManager; 
+    public void Awake()
+    {
+        inventoryManager = FindObjectOfType<InventoryManager>();
+    }
     
    public void AddItem(ItemDetails item)
     {
@@ -43,7 +52,29 @@ public class ItemSlot : MonoBehaviour
         itemImage.sprite = itemIcon;
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            RightClick();
+        }
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            LeftClick();
+        }
+        
+    }
 
-    
-    
+    public void RightClick()
+    {
+        Debug.Log("Right Clicked on");
+    }
+    public void LeftClick()
+    {
+        inventoryManager.DeselectAllSlots();
+        isItemSelected = true;
+        SelectedPanel.SetActive(true);
+        Debug.Log("Left Clicked on");
+        
+    }
 }
