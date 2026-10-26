@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
 
     void Menang()
     {
-        Debug.Log("KAMU MENANG!");
+        Debug.Log("You Da Win"); 
+    
         textMenang.gameObject.SetActive(true);
     }
 }
