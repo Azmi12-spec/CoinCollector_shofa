@@ -10,6 +10,10 @@ public class InventoryManager : MonoBehaviour, GrabableItem
     private bool InventoryActive;
     public ItemSlot[] itemSlot;
 
+    //cek item details panel
+    [SerializeField] private ItemDetailsPanel detailsPanel;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +21,11 @@ public class InventoryManager : MonoBehaviour, GrabableItem
         InventoryCanvas.SetActive(false);
         inventoryAction = InputSystem.actions.FindAction("Inventory");
         InventoryActive = false;
+
+        if(detailsPanel == null)
+        {
+            Debug.LogWarning("ItemDetailsPanel is not assigned in the inspector.", this);
+        }
 
     }
 
@@ -29,6 +38,8 @@ public class InventoryManager : MonoBehaviour, GrabableItem
             Time.timeScale = 0f;
             Debug.Log("Inventory is active");
             InventoryCanvas.SetActive(true);
+            //show firts
+            ShowFirstItem();
         } else if (inventoryAction.triggered && InventoryCanvas != null && InventoryActive == true)
         {
             InventoryActive = false;
@@ -93,13 +104,45 @@ public class InventoryManager : MonoBehaviour, GrabableItem
         }
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            if (!itemSlot[i].isFull)
+            if (itemSlot[i].IsEmpty)
             {
                 itemSlot[i].AddItem(item);
                 return;
             }
         }
         Debug.LogWarning("Inventory is full, '" + item.ItemName + "' was lost.");
+    }
+
+    public void SelectSlot(ItemSlot slot)
+    {
+        DeselectAllSlots();
+
+        slot.SelectedPanel.SetActive(true);
+        slot.isItemSelected = true;
+
+        if(detailsPanel != null)
+        {
+            detailsPanel.Show(slot.ItemDetails, slot.itemQuantity);
+        }
+
+    }
+    public void ShowFirstItem()
+    {
+        if (itemSlot !=null)
+        {
+            foreach (ItemSlot slot in itemSlot)
+            {
+                if (!slot.IsEmpty)
+                {
+                    SelectSlot(slot);
+                    return;
+                }
+            }
+        }
+        if(detailsPanel != null)
+        {
+            detailsPanel.Clear();
+        }
     }
     public void DeselectAllSlots()
     {

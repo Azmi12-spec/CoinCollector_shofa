@@ -10,6 +10,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public int itemQuantity;
     public Sprite itemIcon;
     public bool isFull;
+      public ItemDetails ItemDetails => itemDetails;
+    private ItemDetails itemDetails;
+
 
     // Item Slot
     [SerializeField] private TMP_Text quantityText;
@@ -27,6 +30,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     
    public void AddItem(ItemDetails item)
     {
+        itemDetails = item;
         itemName = item.ItemName;
         // itemQuantity = item.Quantity;
         itemIcon = item.ItemIcon;
@@ -37,6 +41,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         // quantityText.enabled = true;
         // itemImage.sprite = itemIcon;
     }
+    public bool IsEmpty => itemQuantity <= 0;
 
     public bool CanStackWith(string otherItemName)
     {
@@ -71,9 +76,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
     public void LeftClick()
     {
-        inventoryManager.DeselectAllSlots();
-        isItemSelected = true;
-        SelectedPanel.SetActive(true);
+        // inventoryManager.DeselectAllSlots();
+        // isItemSelected = true;
+        // SelectedPanel.SetActive(true);
+        
+        if (IsEmpty || inventoryManager == null)
+        {
+            return;
+        }
+
+        inventoryManager.SelectSlot(this);
         Debug.Log("Left Clicked on");
         
     }
